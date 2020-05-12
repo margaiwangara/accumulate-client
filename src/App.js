@@ -2,6 +2,7 @@ import React from 'react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import loading from './utils/app';
 
+// css
 import './App.css';
 
 // views
