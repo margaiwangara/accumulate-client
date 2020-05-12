@@ -73,7 +73,7 @@ const AuthFormContainer = styled.form`
     font-weight: 600;
     justify-self: center;
     padding: ${pixelsToRem(5)} 0;
-    color: var(--primaryColor);
+    color: var(--blackColor);
 
     a {
       color: var(--primaryColor);

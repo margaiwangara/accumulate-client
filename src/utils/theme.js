@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { fontSize } from './styles';
+import { fontSize, pixelsToRem } from './styles';
 
 export const LogoContainer = styled.div`
   display: grid;
@@ -8,9 +8,9 @@ export const LogoContainer = styled.div`
   justify-items: center;
 
   span {
-    height: 50px;
-    width: 50px;
-    border: double 5px var(--primaryColor);
+    height: ${pixelsToRem(50)};
+    width: ${pixelsToRem(50)};
+    border: double ${pixelsToRem(5)} var(--primaryColor);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -18,14 +18,13 @@ export const LogoContainer = styled.div`
     ${fontSize(70)}
     font-weight: 700;
     position: relative;
-
-    &:after {
-      position: absolute;
-      height: 150%;
-      width: 75%;
-      background-color: var(--whiteColor);
-      top: -10px;
-      right: -10px;
-    }
+    color: var(--primaryColor);
   }
+`;
+
+export const Heading3 = styled.h3`
+  text-align: center;
+  color: var(--primaryColor);
+  ${fontSize(25)}
+  letter-spacing: 0.25px;
 `;
