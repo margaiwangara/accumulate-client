@@ -12,23 +12,25 @@ const Home = React.lazy(() => import('./views/Home/Home'));
 function App() {
   return (
     <HashRouter>
-      <React.Suspense fallback={loading()}>
-        <Switch>
-          <Route
-            path="/register"
-            name="Register"
-            exact
-            render={(props) => <Register {...props} />}
-          />
-          <Route
-            path="/login"
-            name="Login"
-            exact
-            render={(props) => <Login {...props} />}
-          />
-          <Route path="/" exact render={(props) => <Home {...props} />} />
-        </Switch>
-      </React.Suspense>
+      <main id="app">
+        <React.Suspense fallback={loading()}>
+          <Switch>
+            <Route
+              path="/register"
+              name="Register"
+              exact
+              render={(props) => <Register {...props} />}
+            />
+            <Route
+              path="/login"
+              name="Login"
+              exact
+              render={(props) => <Login {...props} />}
+            />
+            <Route path="/" exact render={(props) => <Home {...props} />} />
+          </Switch>
+        </React.Suspense>
+      </main>
     </HashRouter>
   );
 }

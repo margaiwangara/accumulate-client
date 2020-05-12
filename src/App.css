@@ -8,10 +8,10 @@
 
 body {
   --primaryColor: #154319;
-  --whiteColor: #f6f6f6;
+  --whiteColor: #ffffff;
   --blackColor: #191918;
   --darkGreyColor: #495242;
-  --lightGreyColor: #aaaaa9;
+  --lightGreyColor: #bdbdbd;
   --successColor: #28a745;
   --infoColor: #17a2b8;
   --warningColor: #ffc107;
@@ -22,8 +22,27 @@ body {
   font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif;
   line-height: 1.5;
   font-size: 16px;
+  letter-spacing: 0.5px;
+  color: var(--blackColor);
+  background-color: var(--whiteColor);
 }
 
 a {
   text-decoration: none;
+}
+
+input,
+btn {
+  font-family: 'Source Sans Pro', Arial, Helvetica, sans-serif;
+}
+
+.list-unstyled {
+  list-style-type: none;
+}
+
+#app {
+  height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
