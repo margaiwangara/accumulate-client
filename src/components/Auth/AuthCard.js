@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+// import { Alert } from '@/utils/theme';
 import { pixelsToRem, media } from '@/utils/styles';
 
 // components
@@ -12,6 +13,7 @@ function AuthCard({ path }) {
     <AuthContainer>
       <Card>
         <Logo />
+        {/* <Alert className="alert-danger">how are you?</Alert> */}
         <AuthForm path={path} />
       </Card>
     </AuthContainer>
