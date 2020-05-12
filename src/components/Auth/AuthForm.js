@@ -11,17 +11,34 @@ function AuthForm({ path }) {
         <>
           <AuthFormGroup>
             <label htmlFor="nameField">Name</label>
-            <AuthFormInput type="text" name="name" id="nameField" required />
+            <AuthFormInput
+              type="text"
+              name="name"
+              id="nameField"
+              placeholder="Name"
+              required
+            />
           </AuthFormGroup>
           <AuthFormGroup>
             <label htmlFor="surnameField">Surname</label>
-            <AuthFormInput type="text" name="surname" id="surnameField" />
+            <AuthFormInput
+              type="text"
+              name="surname"
+              id="surnameField"
+              placeholder="Surname"
+            />
           </AuthFormGroup>
         </>
       ) : null}
       <AuthFormGroup>
         <label htmlFor="emailField">Email</label>
-        <AuthFormInput type="email" name="email" id="emailField" required />
+        <AuthFormInput
+          type="email"
+          name="email"
+          id="emailField"
+          placeholder="johndoe@example.io"
+          required
+        />
       </AuthFormGroup>
       <AuthFormGroup>
         <label htmlFor="passwordField">Password</label>
@@ -29,6 +46,7 @@ function AuthForm({ path }) {
           type="password"
           name="password"
           id="passwordField"
+          placeholder="Password"
           required
         />
       </AuthFormGroup>
@@ -39,6 +57,7 @@ function AuthForm({ path }) {
             type="password"
             name="confirm_password"
             id="confirmPasswordField"
+            placeholder="Confirm Password"
             required
           />
         </AuthFormGroup>
@@ -101,6 +120,10 @@ const AuthFormInput = styled.input`
   border-radius: ${pixelsToRem(10)};
   ${fontSize(15)}
   color: var(--blackColor);
+
+  &::placeholder {
+    color: var(--lightGreyColor);
+  }
 `;
 
 const Button = styled.button`

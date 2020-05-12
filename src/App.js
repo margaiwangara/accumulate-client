@@ -8,7 +8,9 @@ import './App.css';
 // views
 const Login = React.lazy(() => import('./views/Pages/Login'));
 const Register = React.lazy(() => import('./views/Pages/Register'));
-const Home = React.lazy(() => import('./views/Home/Home'));
+const DefaultLayout = React.lazy(() =>
+  import('./containers/DefaultLayout/DefaultLayout'),
+);
 
 function App() {
   return (
@@ -28,7 +30,7 @@ function App() {
               exact
               render={(props) => <Login {...props} />}
             />
-            <Route path="/" exact render={(props) => <Home {...props} />} />
+            <Route path="/" render={(props) => <DefaultLayout {...props} />} />
           </Switch>
         </React.Suspense>
       </main>
