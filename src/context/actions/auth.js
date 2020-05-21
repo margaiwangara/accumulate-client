@@ -19,7 +19,7 @@ export const getUserDetails = () => {
   });
 };
 
-function authUser(dispatch, path, payload) {
+function authUser(dispatch, errorDispatch, path, payload) {
   return new Promise((resolve, reject) => {
     return apiRequest('post', `/api/auth/${path}`, payload)
       .then(({ token }) => {
@@ -29,17 +29,17 @@ function authUser(dispatch, path, payload) {
         getUserDetails()
           .then((user) => {
             dispatch(setCurrentUser(user));
-            removeError();
+            errorDispatch(removeError());
           })
           .catch((error) => {
-            addError(error);
+            errorDispatch(addError(error));
           });
 
         resolve();
       })
       .catch((error) => {
         console.log(error);
-        addError(error);
+        errorDispatch(addError(error));
         reject();
       });
   });
