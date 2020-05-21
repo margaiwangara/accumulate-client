@@ -7,24 +7,26 @@ import { pixelsToRem, fontSize } from '@/utils/styles';
 function DefaultNavbar() {
   return (
     <NavbarContainer>
-      {/* <Logo /> */}
-      <h3>accumulate</h3>
-      <ul className="navbar-right list-unstyled">
-        <li>
-          <Link to="/" className="active">
-            Home
-          </Link>
-        </li>
-        <li>
-          <Link to="/">Blog</Link>
-        </li>
-        {/* <li>
+      <section className="navbar-inner">
+        <h3>accumulate</h3>
+        <ul className="navbar-right list-unstyled">
+          <li>
+            <Link to="/" className="active">
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link to="/">Blog</Link>
+          </li>
+          {/* <li>
           <Link to="/">About</Link>
         </li>
         <li>
           <Link to="/">Contact</Link>
         </li> */}
-      </ul>
+        </ul>
+      </section>
+      {/* <Logo /> */}
     </NavbarContainer>
   );
 }
@@ -32,12 +34,17 @@ function DefaultNavbar() {
 const NavbarContainer = styled.nav`
   width: 100%;
   background-color: var(--whiteColor);
-  display: grid;
-  grid-template-columns: repeat(2, auto);
-  justify-content: space-between;
-  align-items: center;
-  padding: ${pixelsToRem(15)} ${pixelsToRem(20)};
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.16);
+
+  .navbar-inner {
+    width: 90%;
+    padding: ${pixelsToRem(15)} ${pixelsToRem(20)};
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+  }
 
   h3 {
     color: var(--primaryColor);

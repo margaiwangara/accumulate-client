@@ -19,10 +19,10 @@ body {
   height: 100vh;
   width: 100%;
   overflow: hidden;
-  font-family: 'Neusa Next Pro', Arial, Helvetica, sans-serif;
+  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
   line-height: 1.5;
   font-size: 16px;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.35px;
   color: var(--blackColor);
   background-color: var(--whiteColor);
 }
@@ -33,7 +33,7 @@ a {
 
 input,
 button {
-  font-family: 'Neusa Next Pro', Arial, Helvetica, sans-serif;
+  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
 }
 
 .list-unstyled {
