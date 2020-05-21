@@ -3,10 +3,12 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { pixelsToRem, fontSize } from '@/utils/styles';
+import useAuthForm from '@/hooks/auth-form';
 
 function AuthForm({ path }) {
+  const { value, handleChange, handleSubmit } = useAuthForm(path);
   return (
-    <AuthFormContainer autoComplete="off">
+    <AuthFormContainer autoComplete="off" onSubmit={handleSubmit}>
       {path === 'register' ? (
         <>
           <AuthFormGroup>
@@ -16,6 +18,8 @@ function AuthForm({ path }) {
               name="name"
               id="nameField"
               placeholder="Name"
+              value={value.name}
+              onChange={handleChange}
               required
             />
           </AuthFormGroup>
@@ -26,6 +30,8 @@ function AuthForm({ path }) {
               name="surname"
               id="surnameField"
               placeholder="Surname"
+              value={value.surname}
+              onChange={handleChange}
             />
           </AuthFormGroup>
         </>
@@ -37,6 +43,8 @@ function AuthForm({ path }) {
           name="email"
           id="emailField"
           placeholder="johndoe@example.io"
+          value={value.email}
+          onChange={handleChange}
           required
         />
       </AuthFormGroup>
@@ -47,6 +55,8 @@ function AuthForm({ path }) {
           name="password"
           id="passwordField"
           placeholder="Password"
+          value={value.password}
+          onChange={handleChange}
           required
         />
       </AuthFormGroup>
@@ -58,6 +68,8 @@ function AuthForm({ path }) {
             name="confirm_password"
             id="confirmPasswordField"
             placeholder="Confirm Password"
+            value={value.confirm_password}
+            onChange={handleChange}
             required
           />
         </AuthFormGroup>
@@ -66,11 +78,14 @@ function AuthForm({ path }) {
         {path === 'login' ? 'Log In' : 'Register'}
       </Button>
       <p>
-        {path === 'login' ? 'Not a member? ' : 'Already a member? '}
         {path === 'login' ? (
-          <Link to="/register">Register</Link>
+          <>
+            Not a member? <Link to="/register">Register</Link>
+          </>
         ) : (
-          <Link to="/login">Log In</Link>
+          <>
+            Already a member? <Link to="/login">Log In</Link>
+          </>
         )}
       </p>
     </AuthFormContainer>
