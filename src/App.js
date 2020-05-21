@@ -12,26 +12,34 @@ const DefaultLayout = React.lazy(() =>
   import('./containers/DefaultLayout/DefaultLayout'),
 );
 
+// store
+const ContextStore = React.lazy(() => import('./context/store'));
+
 function App() {
   return (
     <HashRouter>
       <main id="app">
         <React.Suspense fallback={loading()}>
-          <Switch>
-            <Route
-              path="/register"
-              name="Register"
-              exact
-              render={(props) => <Register {...props} />}
-            />
-            <Route
-              path="/login"
-              name="Login"
-              exact
-              render={(props) => <Login {...props} />}
-            />
-            <Route path="/" render={(props) => <DefaultLayout {...props} />} />
-          </Switch>
+          <ContextStore>
+            <Switch>
+              <Route
+                path="/register"
+                name="Register"
+                exact
+                render={(props) => <Register {...props} />}
+              />
+              <Route
+                path="/login"
+                name="Login"
+                exact
+                render={(props) => <Login {...props} />}
+              />
+              <Route
+                path="/"
+                render={(props) => <DefaultLayout {...props} />}
+              />
+            </Switch>
+          </ContextStore>
         </React.Suspense>
       </main>
     </HashRouter>
