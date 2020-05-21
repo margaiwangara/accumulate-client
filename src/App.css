@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap');
-@import './assets/css/now-ui-kit.min.css';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;700&display=swap');
 
 * {
   padding: 0;
@@ -13,10 +12,6 @@ body {
   --blackColor: #191918;
   --darkGreyColor: #495242;
   --lightGreyColor: #bdbdbd;
-  --successColor: #48c774;
-  --infoColor: #3298dc;
-  --warningColor: #ffdd57;
-  --dangerColor: #f14668;
   height: 100vh;
   width: 100%;
   overflow: hidden;
@@ -39,20 +34,4 @@ button {
 
 .list-unstyled {
   list-style-type: none;
-}
-
-#app {
-  height: 100vh;
-  width: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-
-.simplebar-scroller .simplebar-wrapper {
-  height: 100vh;
-  width: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
-  display: grid;
-  grid-template-columns: 1fr;
 }

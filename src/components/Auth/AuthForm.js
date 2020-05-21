@@ -1,166 +1,128 @@
 import React from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { pixelsToRem, fontSize } from '@/utils/styles';
+import { Link, useHistory } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useAuthForm from '@/hooks/auth-form';
+import { useError } from '@/context/app/ErrorContext';
+import { removeError } from '@/context/actions/error';
 
-function AuthForm({ path }) {
+function AuthForm({ heading, subheading, path, btnText }) {
+  const history = useHistory();
+  const { state, dispatch } = useError();
   const { value, handleChange, handleSubmit } = useAuthForm(path);
+
+  history.listen(() => {
+    dispatch(removeError());
+  });
+
   return (
-    <AuthFormContainer autoComplete="off" onSubmit={handleSubmit}>
-      {path === 'register' ? (
-        <>
-          <AuthFormGroup>
-            <label htmlFor="nameField">Name</label>
-            <AuthFormInput
+    <form className="form" method="post" onSubmit={handleSubmit}>
+      <div className="card-body p-0">
+        <h3 className="card-title mb-3 mt-0 font-weight-bold">{heading}</h3>
+        <p className="card-text">{subheading}</p>
+        {Object.keys(state.error).length > 0 ? (
+          <div className="alert alert-danger">
+            {Array.isArray(state.error.message) ? (
+              <ul className="list-unstyled p-0 m-0">
+                {state.error.message.map((e, i) => (
+                  <li key={i}>{e}</li>
+                ))}
+              </ul>
+            ) : (
+              state.error.message
+            )}
+          </div>
+        ) : null}
+        {path === 'register' ? (
+          <div className="input-group no-border input-lg">
+            <div className="input-group-prepend">
+              <span className="input-group-text">
+                <FontAwesomeIcon icon="user-circle" />
+              </span>
+            </div>
+            <input
               type="text"
-              name="name"
-              id="nameField"
+              className="form-control"
               placeholder="Name"
+              name="name"
               value={value.name}
               onChange={handleChange}
+              autoComplete="family-name"
               required
             />
-          </AuthFormGroup>
-          <AuthFormGroup>
-            <label htmlFor="surnameField">Surname</label>
-            <AuthFormInput
-              type="text"
-              name="surname"
-              id="surnameField"
-              placeholder="Surname"
-              value={value.surname}
-              onChange={handleChange}
-            />
-          </AuthFormGroup>
-        </>
-      ) : null}
-      <AuthFormGroup>
-        <label htmlFor="emailField">Email</label>
-        <AuthFormInput
-          type="email"
-          name="email"
-          id="emailField"
-          placeholder="johndoe@example.io"
-          value={value.email}
-          onChange={handleChange}
-          required
-        />
-      </AuthFormGroup>
-      <AuthFormGroup>
-        <label htmlFor="passwordField">Password</label>
-        <AuthFormInput
-          type="password"
-          name="password"
-          id="passwordField"
-          placeholder="Password"
-          value={value.password}
-          onChange={handleChange}
-          required
-        />
-      </AuthFormGroup>
-      {path === 'register' ? (
-        <AuthFormGroup>
-          <label htmlFor="confirmPasswordField">Confirm Password</label>
-          <AuthFormInput
-            type="password"
-            name="confirm_password"
-            id="confirmPasswordField"
-            placeholder="Confirm Password"
-            value={value.confirm_password}
+          </div>
+        ) : null}
+        <div className="input-group no-border input-lg">
+          <div className="input-group-prepend">
+            <span className="input-group-text">
+              <FontAwesomeIcon icon="at" />
+            </span>
+          </div>
+          <input
+            type="email"
+            placeholder="Email"
+            className="form-control"
+            name="email"
+            value={value.email}
             onChange={handleChange}
+            autoComplete="email"
             required
           />
-        </AuthFormGroup>
-      ) : null}
-      <Button type="submit" className="btn btn-primary">
-        {path === 'login' ? 'Log In' : 'Register'}
-      </Button>
-      <p>
-        {path === 'login' ? (
-          <>
-            Not a member? <Link to="/register">Register</Link>
-          </>
-        ) : (
-          <>
-            Already a member? <Link to="/login">Log In</Link>
-          </>
-        )}
-      </p>
-    </AuthFormContainer>
+        </div>
+        <div className="input-group no-border input-lg">
+          <div className="input-group-prepend">
+            <span className="input-group-text">
+              <FontAwesomeIcon icon="lock" />
+            </span>
+          </div>
+          <input
+            type="password"
+            placeholder="Password"
+            className="form-control"
+            name="password"
+            value={value.password}
+            onChange={handleChange}
+            autoComplete={
+              path === 'register' ? 'new-password' : 'current-password'
+            }
+            required
+          />
+        </div>
+      </div>
+      <div className="card-footer text-center">
+        <button
+          type="submit"
+          className="btn btn-primary btn-round btn-lg btn-block mb-3"
+        >
+          {btnText}
+        </button>
+        <h6 className="text-center mt-2">
+          {path === 'login' ? (
+            <>
+              Not a member?{' '}
+              <Link to="/register" className="link">
+                Create Account
+              </Link>
+            </>
+          ) : (
+            <>
+              Already a member?{' '}
+              <Link to="/login" className="link">
+                Access Account
+              </Link>
+            </>
+          )}
+        </h6>
+      </div>
+    </form>
   );
 }
 
 AuthForm.propTypes = {
+  heading: PropTypes.string,
+  subheading: PropTypes.string,
   path: PropTypes.string,
+  btnText: PropTypes.string,
 };
-
-const AuthFormContainer = styled.form`
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: ${pixelsToRem(10)};
-
-  p {
-    ${fontSize(13)}
-    letter-spacing: 0.25px;
-    font-weight: 600;
-    justify-self: center;
-    padding: ${pixelsToRem(5)} 0;
-    color: var(--blackColor);
-
-    a {
-      color: var(--primaryColor);
-      &:hover {
-        opacity: 0.5;
-      }
-    }
-  }
-`;
-
-const AuthFormGroup = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: ${pixelsToRem(2.5)};
-
-  label {
-    ${fontSize(15)}
-  }
-`;
-
-const AuthFormInput = styled.input`
-  padding: ${pixelsToRem(8)} ${pixelsToRem(8)};
-  outline: none;
-  border: solid ${pixelsToRem(1)} var(--lightGreyColor);
-  border-radius: ${pixelsToRem(10)};
-  ${fontSize(15)}
-  color: var(--blackColor);
-
-  &::placeholder {
-    color: var(--lightGreyColor);
-  }
-`;
-
-const Button = styled.button`
-padding: ${pixelsToRem(8)};
-    text-transform: capitalize;
-    font-weight: 400;
-    ${fontSize(15)}
-    border-radius: ${pixelsToRem(10)};
-    cursor: pointer;
-    letter-spacing: ${pixelsToRem(0.5)};
-    
-
-    &.btn-primary {
-      background-color: var(--primaryColor);
-      color: var(--whiteColor);
-      border: solid ${pixelsToRem(1)} var(--primaryColor);
-      
-      &:hover {
-        color: var(--primary);
-        background-color: var(--whiteColor);
-      }
-    }
-`;
 
 export default AuthForm;

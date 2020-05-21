@@ -6,8 +6,6 @@ import loading from '@/utils/app';
 import routes from '@/routes';
 import { pixelsToRem } from '@/utils/styles';
 
-import 'simplebar/dist/simplebar.min.css';
-
 // const DefaultNavbar = React.lazy(() => import('./DefaultNavbar'));
 
 function DefaultLayout() {

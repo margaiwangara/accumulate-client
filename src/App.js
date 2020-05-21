@@ -1,9 +1,21 @@
 import React from 'react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
+import styled from 'styled-components';
 import loading from './utils/app';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+import {
+  faUserCircle,
+  faLock,
+  faUser,
+  faAt,
+} from '@fortawesome/free-solid-svg-icons';
 
 // css
 import './App.css';
+
+// font awesome
+library.add(fab, faUserCircle, faLock, faUser, faAt);
 
 // views
 const Login = React.lazy(() => import('./views/Pages/Login'));
@@ -18,7 +30,7 @@ const ContextStore = React.lazy(() => import('./context/store'));
 function App() {
   return (
     <HashRouter>
-      <main id="app">
+      <AppContainer id="app">
         <React.Suspense fallback={loading()}>
           <ContextStore>
             <Switch>
@@ -41,9 +53,14 @@ function App() {
             </Switch>
           </ContextStore>
         </React.Suspense>
-      </main>
+      </AppContainer>
     </HashRouter>
   );
 }
 
+const AppContainer = styled.main`
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+`;
 export default App;
