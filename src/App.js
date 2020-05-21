@@ -1,7 +1,6 @@
 import React from 'react';
-import { HashRouter, Route, Switch } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import styled from 'styled-components';
-import loading from './utils/app';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import {
@@ -10,6 +9,7 @@ import {
   faUser,
   faAt,
 } from '@fortawesome/free-solid-svg-icons';
+import loading from './utils/app';
 
 // css
 import './App.css';
@@ -17,15 +17,11 @@ import './App.css';
 // font awesome
 library.add(fab, faUserCircle, faLock, faUser, faAt);
 
-// views
-const Login = React.lazy(() => import('./views/Pages/Login'));
-const Register = React.lazy(() => import('./views/Pages/Register'));
-const DefaultLayout = React.lazy(() =>
-  import('./containers/DefaultLayout/DefaultLayout'),
-);
-
 // store
 const ContextStore = React.lazy(() => import('./context/store'));
+
+// main container
+const Main = React.lazy(() => import('@/containers/Main/Main'));
 
 function App() {
   return (
@@ -33,24 +29,7 @@ function App() {
       <AppContainer id="app">
         <React.Suspense fallback={loading()}>
           <ContextStore>
-            <Switch>
-              <Route
-                path="/register"
-                name="Register"
-                exact
-                render={(props) => <Register {...props} />}
-              />
-              <Route
-                path="/login"
-                name="Login"
-                exact
-                render={(props) => <Login {...props} />}
-              />
-              <Route
-                path="/"
-                render={(props) => <DefaultLayout {...props} />}
-              />
-            </Switch>
+            <Main />
           </ContextStore>
         </React.Suspense>
       </AppContainer>

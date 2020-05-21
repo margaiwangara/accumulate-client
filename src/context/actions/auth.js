@@ -2,12 +2,12 @@ import { SET_CURRENT_USER } from '../actionTypes';
 import apiRequest, { setTokenHeader } from '@/services/api';
 import { addError, removeError } from './error';
 
-function setCurrentUser(user) {
+export const setCurrentUser = (user) => {
   return {
     type: SET_CURRENT_USER,
     user,
   };
-}
+};
 
 export const setAuthorizationToken = (token) => setTokenHeader(token);
 
