@@ -8,13 +8,13 @@ import { pixelsToRem } from '@/utils/styles';
 
 import 'simplebar/dist/simplebar.min.css';
 
-const DefaultNavbar = React.lazy(() => import('./DefaultNavbar'));
+// const DefaultNavbar = React.lazy(() => import('./DefaultNavbar'));
 
 function DefaultLayout() {
   return (
     <DefaultLayoutContainer>
       <React.Suspense fallback={loading()}>
-        <DefaultNavbar />
+        <p>Navbar was here</p>
       </React.Suspense>
       <SimpleBar className="default-layout-body">
         <React.Suspense fallback={loading()}>

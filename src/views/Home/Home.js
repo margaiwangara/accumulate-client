@@ -1,23 +1,20 @@
 import React from 'react';
 import loading from '@/utils/app';
 import styled from 'styled-components';
-
-const ArticleList = React.lazy(() =>
-  import('@/components/Article/ArticleList'),
-);
+import { Button } from 'reactstrap';
 
 function Home() {
   return (
     <HomeContainer>
       <React.Suspense fallback={loading()}>
-        <ArticleList />
+        <Button color="primary">I was here</Button>
       </React.Suspense>
     </HomeContainer>
   );
 }
 
 const HomeContainer = styled.section`
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
   height: 100%;
   display: grid;
