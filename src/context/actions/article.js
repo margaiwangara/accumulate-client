@@ -12,9 +12,9 @@ export const loadArticle = (data) => ({
   data,
 });
 
-export const fetchArticles = (dispatch, errorDispatch) => {
+export const fetchArticles = (dispatch, errorDispatch, limit = 10) => {
   return new Promise((resolve, reject) => {
-    return apiRequest('get', '/api/articles')
+    return apiRequest('get', `/api/articles?limit=${limit}`)
       .then(({ success, ...res }) => {
         dispatch(loadArticles({ ...res }));
         errorDispatch(removeError());

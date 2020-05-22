@@ -8,6 +8,7 @@ import {
   faLock,
   faUser,
   faAt,
+  faSpinner,
 } from '@fortawesome/free-solid-svg-icons';
 import loading from './utils/app';
 
@@ -15,7 +16,7 @@ import loading from './utils/app';
 import './App.css';
 
 // font awesome
-library.add(fab, faUserCircle, faLock, faUser, faAt);
+library.add(fab, faUserCircle, faLock, faUser, faAt, faSpinner);
 
 // store
 const ContextStore = React.lazy(() => import('./context/store'));
