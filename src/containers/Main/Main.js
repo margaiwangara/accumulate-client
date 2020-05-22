@@ -35,7 +35,7 @@ function Main() {
       }
     };
     authenticate();
-  }, []);
+  }, [dispatch]);
 
   return (
     <Switch>
