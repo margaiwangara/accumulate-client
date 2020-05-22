@@ -5,6 +5,15 @@ export const setTokenHeader = (token) => {
   else delete axios.defaults.headers.common['Authorization'];
 };
 
+axios.interceptors.response.use(
+  function (response) {
+    return response;
+  },
+  function (error) {
+    return Promise.reject(error);
+  },
+);
+
 function apiRequest(method, path, payload) {
   return new Promise((resolve, reject) => {
     return axios[method](path, payload)

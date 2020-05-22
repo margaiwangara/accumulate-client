@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { HashRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -24,6 +24,15 @@ const ContextStore = React.lazy(() => import('./context/store'));
 const Main = React.lazy(() => import('@/containers/Main/Main'));
 
 function App() {
+  useEffect(() => {
+    document.body.classList.add('sidebar-collapse');
+    document.documentElement.classList.remove('nav-open');
+    return function cleanup() {
+      document.body.classList.remove('landing-page');
+      document.body.classList.remove('sidebar-collapse');
+    };
+  }, []);
+
   return (
     <HashRouter>
       <AppContainer id="app">

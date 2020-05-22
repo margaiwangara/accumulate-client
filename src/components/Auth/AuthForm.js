@@ -100,14 +100,14 @@ function AuthForm({ heading, subheading, path, btnText }) {
           {path === 'login' ? (
             <>
               Not a member?{' '}
-              <Link to="/register" className="link">
+              <Link to="/register" className="link text-primary">
                 Create Account
               </Link>
             </>
           ) : (
             <>
               Already a member?{' '}
-              <Link to="/login" className="link">
+              <Link to="/login" className="link text-primary">
                 Access Account
               </Link>
             </>
