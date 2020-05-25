@@ -5,15 +5,15 @@ import SimpleBar from 'simplebar-react';
 import loading from '@/utils/app';
 import routes from '@/routes';
 
-// const DefaultNavbar = React.lazy(() => import('./DefaultNavbar'));
+const DefaultNavbar = React.lazy(() => import('./DefaultNavbar'));
 
 function DefaultLayout() {
   return (
     <DefaultLayoutContainer>
-      {/* <React.Suspense fallback={loading()}>
-        <p>Navbar was here</p>
-      </React.Suspense> */}
-      <SimpleBar style={{ maxHeight: '100%' }}>
+      <React.Suspense fallback={loading()}>
+        <DefaultNavbar />
+      </React.Suspense>
+      <SimpleBar style={{ maxHeight: '100%', paddingTop: '40px' }}>
         <div className="container">
           <React.Suspense fallback={loading()}>
             <Switch>
@@ -31,6 +31,9 @@ function DefaultLayout() {
             </Switch>
           </React.Suspense>
         </div>
+        <footer className="py-4 px-2 bg-light text-sm">
+          &copy; {new Date().getFullYear()} accumulate
+        </footer>
       </SimpleBar>
     </DefaultLayoutContainer>
   );
@@ -40,12 +43,6 @@ const DefaultLayoutContainer = styled.section`
   height: 100%;
   width: 100%;
   overflow: hidden;
-
-  .default-layout-body {
-    max-height: 100%;
-    width: 100%;
-    overflow-x: hidden;
-  }
 `;
 
 export default DefaultLayout;
