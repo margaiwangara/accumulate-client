@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import Identicons from 'react-identicons';
 import BlurredImage from '@/assets/images/blurred-image-1.jpg';
 import { useAuth } from '@/context/app/AuthContext';
 // import Logo from '@/components/App/Logo';
@@ -135,11 +136,15 @@ function DefaultNavbar() {
               {state.isAuthenticated ? (
                 <li className="nav-item">
                   <div className="d-flex align-items-center">
-                    <a className="nav-link font-weight-bold" href="#user">{`${
-                      state.user.name
-                    } ${state.user.surname ? state.user.surname : ''}`}</a>
+                    <Link
+                      to="/profile"
+                      className="nav-link font-weight-bold"
+                    >{`${state.user.name} ${
+                      state.user.surname ? state.user.surname : ''
+                    }`}</Link>
                     {state.user.profileImage === 'no-image.jpg' ? (
                       <Link to="/profile">
+                        {/* <Identicons string={state.user.email} size={30} /> */}
                         <FontAwesomeIcon icon="user-circle" size="2x" />
                       </Link>
                     ) : (
