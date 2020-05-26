@@ -1,4 +1,4 @@
-import { SET_CURRENT_USER } from '../actionTypes';
+import { SET_CURRENT_USER, REMOVE_CURRENT_USER } from '../actionTypes';
 import apiRequest, { setTokenHeader } from '@/services/api';
 import { addError, removeError } from './error';
 
@@ -9,7 +9,18 @@ export const setCurrentUser = (user) => {
   };
 };
 
+export const removeCurrentUser = () => {
+  return {
+    type: REMOVE_CURRENT_USER,
+  };
+};
+
 export const setAuthorizationToken = (token) => setTokenHeader(token);
+
+export const logoutUser = (dispatch) => {
+  dispatch(removeCurrentUser());
+  window.localStorage.removeItem('jwt');
+};
 
 export const getUserDetails = () => {
   return new Promise((resolve, reject) => {

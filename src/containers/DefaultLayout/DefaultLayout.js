@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import SimpleBar from 'simplebar-react';
 import loading from '@/utils/app';
 import routes from '@/routes';
@@ -28,6 +28,7 @@ function DefaultLayout() {
                   />
                 ) : null,
               )}
+              <Redirect from="/user" to="/user/profile" />
             </Switch>
           </React.Suspense>
         </div>

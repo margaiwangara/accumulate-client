@@ -1,16 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import Identicons from 'react-identicons';
 import BlurredImage from '@/assets/images/blurred-image-1.jpg';
 import { useAuth } from '@/context/app/AuthContext';
+import { logoutUser } from '@/context/actions/auth';
 // import Logo from '@/components/App/Logo';
 
 function DefaultNavbar() {
-  const { state } = useAuth();
+  const { state, dispatch } = useAuth();
   const [navbarColor, setNavbarColor] = useState('');
   const [collapseOpen, setCollapseOpen] = useState(false);
+  const [toggleDropdown, setToggleDropdown] = useState(false);
   // const [openDropdown, setOpenDropdown] = useState(false);
+  const dropdown = useRef(null);
+  const toggler = useRef(null);
   useEffect(() => {
     const updateNavbarColor = () => {
       if (
@@ -26,6 +30,7 @@ function DefaultNavbar() {
       }
     };
     window.addEventListener('scroll', updateNavbarColor);
+
     return function cleanup() {
       window.removeEventListener('scroll', updateNavbarColor);
     };
@@ -134,29 +139,51 @@ function DefaultNavbar() {
                 ''
               )}
               {state.isAuthenticated ? (
-                <li className="nav-item">
-                  <div className="d-flex align-items-center">
+                <li className="nav-item dropdown">
+                  <a
+                    ref={toggler}
+                    href="#dropdown"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setToggleDropdown(!toggleDropdown);
+                    }}
+                    className="nav-link font-weight-bold dropdown-toggle d-flex align-items-center"
+                  >
+                    {`${state.user.name} ${state.user.surname}`}
+                    <FontAwesomeIcon
+                      icon="user-circle"
+                      size="2x"
+                      className="ml-1"
+                    />
+                  </a>
+                  <div
+                    className="dropdown-menu p-0 dropdown-menu-right mt-3"
+                    ref={dropdown}
+                    style={{
+                      visibility: toggleDropdown ? 'visible' : 'hidden',
+                      opacity: toggleDropdown ? 1 : 0,
+                    }}
+                  >
+                    <Link to="/user/profile" className="dropdown-item my-0">
+                      Profile
+                    </Link>
                     <Link
-                      to="/profile"
-                      className="nav-link font-weight-bold"
-                    >{`${state.user.name} ${
-                      state.user.surname ? state.user.surname : ''
-                    }`}</Link>
-                    {state.user.profileImage === 'no-image.jpg' ? (
-                      <Link to="/profile">
-                        {/* <Identicons string={state.user.email} size={30} /> */}
-                        <FontAwesomeIcon icon="user-circle" size="2x" />
-                      </Link>
-                    ) : (
-                      <Link to="/profile">
-                        <figure>
-                          <img
-                            src={state.user.profileImage}
-                            alt={state.user.name}
-                          />
-                        </figure>
-                      </Link>
-                    )}
+                      to="/user/change-password"
+                      className="dropdown-item my-0"
+                    >
+                      Change Password
+                    </Link>
+                    <div className="dropdown-divider my-0"></div>
+                    <a
+                      href="#logout"
+                      className="dropdown-item my-0"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        logoutUser(dispatch);
+                      }}
+                    >
+                      Logout
+                    </a>
                   </div>
                 </li>
               ) : (
