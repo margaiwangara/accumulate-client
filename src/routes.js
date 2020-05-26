@@ -1,7 +1,8 @@
 import React from 'react';
 
 const Home = React.lazy(() => import('@/views/Home/Home'));
-const Articles = React.lazy(() => import('@/views/Article/Article'));
+const Articles = React.lazy(() => import('@/views/Article/Articles'));
+const Article = React.lazy(() => import('@/views/Article/Article'));
 const Profile = React.lazy(() => import('@/views/Profile/Profile'));
 const ChangePassword = React.lazy(() =>
   import('@/views/Profile/ChangePassword'),
@@ -31,6 +32,12 @@ const routes = [
     path: '/user/change-password',
     name: 'ChangePassword',
     component: ChangePassword,
+  },
+  {
+    exact: true,
+    path: '/:link',
+    name: 'Article',
+    component: Article,
   },
 ];
 
