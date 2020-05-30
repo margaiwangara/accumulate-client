@@ -8,5 +8,6 @@ export const ERROR_STATE = {
 };
 
 export const ARTICLE_STATE = {
+  article: {},
   data: {},
 };

@@ -4,13 +4,15 @@ function articleReducer(state, action) {
   switch (action.type) {
     case GET_ARTICLES:
       return {
+        ...state,
         count: action.count,
         pagination: action.pagination,
         data: action.data,
       };
     case GET_ARTICLE:
       return {
-        data: action.data,
+        ...state,
+        article: action.data,
       };
     default:
       return state;
