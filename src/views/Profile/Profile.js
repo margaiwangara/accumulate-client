@@ -65,9 +65,9 @@ function Profile() {
   return (
     <div className="pt-5">
       <div className="row">
-        <div className="col-md-5">
+        <div className="col-md-12">
           <div className="row">
-            <div className="col-md-12">
+            <div className="col-md-6">
               <div className="card">
                 <div className="card-body text-center">
                   <figure className="photo-container">
@@ -88,7 +88,7 @@ function Profile() {
                 </div>
               </div>
             </div>
-            <div className="col-md-12">
+            <div className="col-md-6">
               <div className="card">
                 <div className="card-body">
                   <h3 className="title mb-2">Edit Profile</h3>
@@ -157,7 +157,7 @@ function Profile() {
                         onChange={handleChange}
                       />
                     </div>
-                    <div className="mb-1">
+                    {/* <div className="mb-1">
                       <label htmlFor="profileField">Profile Image</label>
                       <input
                         type="file"
@@ -165,18 +165,11 @@ function Profile() {
                         id="profileField"
                         className="form-control"
                       />
-                    </div>
+                    </div> */}
                     <button className="btn btn-primary">Edit</button>
                   </form>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-7">
-          <div className="card">
-            <div className="card-body">
-              <h3 className="title">Bookmarks</h3>
             </div>
           </div>
         </div>
