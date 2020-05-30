@@ -32,9 +32,6 @@ function DefaultLayout() {
             </Switch>
           </React.Suspense>
         </div>
-        <footer className="py-4 px-2 bg-light text-sm">
-          &copy; {new Date().getFullYear()} accumulate
-        </footer>
       </SimpleBar>
     </DefaultLayoutContainer>
   );
