@@ -88,11 +88,6 @@ function DefaultNavbar() {
                   Home
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/articles">
-                  Articles
-                </Link>
-              </li>
               {!state.isAuthenticated ? (
                 <>
                   <li className="nav-item">
