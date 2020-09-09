@@ -8,3 +8,10 @@ export const media = {
   md: '768px',
   lg: '992px',
 };
+
+export const passwordToggleStyle = {
+  position: 'absolute',
+  right: 0,
+  padding: '0.375rem 0.75rem',
+  cursor: 'pointer',
+};

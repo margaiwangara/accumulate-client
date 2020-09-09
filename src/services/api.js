@@ -1,22 +1,16 @@
 import axios from 'axios';
+import { BASE_URL } from '@/utils/env';
 
 export const setTokenHeader = (token) => {
   if (token) axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   else delete axios.defaults.headers.common['Authorization'];
 };
 
-// axios.interceptors.response.use(
-//   function (response) {
-//     return response;
-//   },
-//   function (error) {
-//     return Promise.reject(error);
-//   },
-// );
+const baseUrl = process.env.NODE_ENV !== 'development' ? `${BASE_URL}/` : '';
 
 function apiRequest(method, path, payload) {
   return new Promise((resolve, reject) => {
-    return axios[method.toLowerCase()](path, payload)
+    return axios[method.toLowerCase()](`${baseUrl}${path}`, payload)
       .then((res) => {
         const data =
           typeof res.data === 'string'
