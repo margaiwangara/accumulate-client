@@ -14,6 +14,7 @@ function Register() {
         subheading="Register to bookmark articles and so much more..."
         path="register"
         btnText="Register"
+        title="Register"
       />
     </React.Suspense>
   );

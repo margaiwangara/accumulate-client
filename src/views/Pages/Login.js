@@ -13,6 +13,7 @@ function Login() {
         subheading="Log in to access your account"
         path="login"
         btnText="Log In"
+        title="Log In"
       />
     </React.Suspense>
   );

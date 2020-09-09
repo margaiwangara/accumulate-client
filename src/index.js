@@ -4,8 +4,6 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 // global styles
-import '@/assets/css/bootstrap.min.css';
-import '@/assets/css/now-ui-kit.min.css';
 import 'simplebar/dist/simplebar.min.css';
 
 ReactDOM.render(

@@ -5,6 +5,9 @@ import PropTypes from 'prop-types';
 import authBg from '@/assets/images/new-bg.jpg';
 import loading from '@/utils/app';
 
+import '@/assets/css/bootstrap.min.css';
+import '@/assets/css/now-ui-kit.min.css';
+
 const AuthForm = React.lazy(() => import('@/components/Auth/AuthForm'));
 
 function AuthContainer(props) {
