@@ -12,5 +12,9 @@ export const ERROR_STATE = {
 
 export const ARTICLE_STATE = {
   article: {},
-  data: {},
+  data: [],
+};
+
+export const HEADER_STATE = {
+  payload: {},
 };
