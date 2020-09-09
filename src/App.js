@@ -12,6 +12,7 @@ import {
   faBars,
   faEye,
   faEyeSlash,
+  faChevronLeft,
 } from '@fortawesome/free-solid-svg-icons';
 import loading from './utils/app';
 
@@ -26,6 +27,7 @@ library.add(
   faBars,
   faEyeSlash,
   faEye,
+  faChevronLeft,
 );
 
 // store

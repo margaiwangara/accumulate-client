@@ -10,12 +10,11 @@ import {
   confirm2faCode,
   setCurrentUser,
   removeCurrentUser,
-} from '@/store/actions/auth';
-import { addError } from '@/store/actions/error';
+} from '@/context/actions/auth';
+import { addError } from '@/context/actions/error';
 import CountDown from 'react-countdown';
-import { wrapperStyling } from '@/utils/styling';
-import Loading from '@/utils/Loading';
-import TitleComponent from '@/container/DefaultLayout/TitleComponent';
+import Loading from '@/utils/app';
+import TitleComponent from '@/containers/DefaultLayout/TitleComponent';
 
 const INITIAL_STATE = {
   code: '',
@@ -123,7 +122,7 @@ function TwoFactor() {
   return (
     <div className="container">
       <TitleComponent title="Two Factor" />
-      <div className="row" style={wrapperStyling}>
+      <div className="row">
         <div className="col-md-6 offset-md-3">
           <React.Suspense fallback={Loading()}>
             <div className="card" style={{ marginTop: '20vh' }}>

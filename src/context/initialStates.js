@@ -3,6 +3,7 @@ export const AUTH_STATE = {
   user: {},
   code: null,
   expiry: null,
+  isLoading: false,
 };
 
 export const ERROR_STATE = {
