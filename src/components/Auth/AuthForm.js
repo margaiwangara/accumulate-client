@@ -1,40 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useAuthForm from '@/hooks/auth-form';
 import { useError } from '@/context/app/ErrorContext';
 import { removeError } from '@/context/actions/error';
+import { passwordToggleStyle } from '@/utils/styles';
+import ErrorHandler from '@/components/Error/ErrorHandler';
 
 function AuthForm({ heading, subheading, path, btnText }) {
+  const [passwordToggle, setPasswordToggle] = useState(false);
+  const [confirmPasswordToggle, setConfirmPasswordToggle] = useState(false);
   const history = useHistory();
   const { state, dispatch } = useError();
-  const { value, handleChange, handleSubmit } = useAuthForm(path);
+  const {
+    value,
+    handleChange,
+    handleSubmit,
+    handleForgotPassword,
+  } = useAuthForm(path);
 
   history.listen(() => {
     dispatch(removeError());
   });
 
   return (
-    <form className="form" method="post" onSubmit={handleSubmit}>
-      <div className="card-body p-0">
-        <h3 className="card-title mb-3 mt-0 font-weight-bold">{heading}</h3>
-        <p className="card-text">{subheading}</p>
-        {Object.keys(state.error).length > 0 ? (
-          <div className="alert alert-danger">
-            {Array.isArray(state.error.message) ? (
-              <ul className="list-unstyled p-0 m-0">
-                {state.error.message.map((e, i) => (
-                  <li key={i}>{e}</li>
-                ))}
-              </ul>
-            ) : (
-              state.error.message
-            )}
-          </div>
-        ) : null}
+    <div className="card-body">
+      <form className="form" method="post" onSubmit={handleSubmit}>
+        <h4 className="card-title font-weight-bold">{heading}</h4>
+        <p className="lead my-1">{subheading}</p>
+        <hr />
+        <ErrorHandler error={state.error} />
         {path === 'register' ? (
-          <div className="input-group no-border input-lg">
+          <div className="input-group mb-2">
             <div className="input-group-prepend">
               <span className="input-group-text">
                 <FontAwesomeIcon icon="user-circle" />
@@ -52,7 +50,7 @@ function AuthForm({ heading, subheading, path, btnText }) {
             />
           </div>
         ) : null}
-        <div className="input-group no-border input-lg">
+        <div className="input-group mb-2">
           <div className="input-group-prepend">
             <span className="input-group-text">
               <FontAwesomeIcon icon="at" />
@@ -60,7 +58,7 @@ function AuthForm({ heading, subheading, path, btnText }) {
           </div>
           <input
             type="email"
-            placeholder="Email"
+            placeholder="E-Mail"
             className="form-control"
             name="email"
             value={value.email}
@@ -69,14 +67,14 @@ function AuthForm({ heading, subheading, path, btnText }) {
             required
           />
         </div>
-        <div className="input-group no-border input-lg">
+        <div className="input-group mb-2">
           <div className="input-group-prepend">
             <span className="input-group-text">
               <FontAwesomeIcon icon="lock" />
             </span>
           </div>
           <input
-            type="password"
+            type={passwordToggle ? 'text' : 'password'}
             placeholder="Password"
             className="form-control"
             name="password"
@@ -87,34 +85,80 @@ function AuthForm({ heading, subheading, path, btnText }) {
             }
             required
           />
+          <div className="input-group-append border-0 bg-white">
+            <span
+              onClick={(e) => setPasswordToggle(!passwordToggle)}
+              style={passwordToggleStyle}
+            >
+              <FontAwesomeIcon
+                icon={passwordToggle ? 'eye-slash' : 'eye'}
+                color="#375a7f"
+              />
+            </span>
+          </div>
         </div>
-      </div>
-      <div className="card-footer text-center">
-        <button
-          type="submit"
-          className="btn btn-primary btn-round btn-lg btn-block mb-3"
-        >
+        {path === 'register' && (
+          <div className="input-group mb-2">
+            <div className="input-group-prepend">
+              <span className="input-group-text">
+                <FontAwesomeIcon icon="lock" />
+              </span>
+            </div>
+            <input
+              type={confirmPasswordToggle ? 'text' : 'password'}
+              placeholder="Confirm Password"
+              className="form-control"
+              name="confirm_password"
+              value={value.confirm_password}
+              onChange={handleChange}
+              autoComplete={
+                path === 'register' ? 'new-password' : 'current-password'
+              }
+              required
+            />
+            <div className="input-group-append border-0 bg-white">
+              <span
+                style={passwordToggleStyle}
+                onClick={(e) =>
+                  setConfirmPasswordToggle(!confirmPasswordToggle)
+                }
+              >
+                <FontAwesomeIcon
+                  icon={confirmPasswordToggle ? 'eye-slash' : 'eye'}
+                  color="#375a7f"
+                />
+              </span>
+            </div>
+          </div>
+        )}
+        {path === 'login' && (
+          <div className="d-flex justify-content-end">
+            <a
+              href="#forgotpassword"
+              className="small"
+              onClick={handleForgotPassword}
+            >
+              Forgot Password?
+            </a>
+          </div>
+        )}
+
+        <button type="submit" className="btn btn-primary btn-block my-2">
           {btnText}
         </button>
-        <h6 className="text-center mt-2">
+        <p className="text-center my-0 small">
           {path === 'login' ? (
             <>
-              Not a member?{' '}
-              <Link to="/register" className="link text-primary">
-                Create Account
-              </Link>
+              Not a member? <Link to="/register">Create Account</Link>
             </>
           ) : (
             <>
-              Already a member?{' '}
-              <Link to="/login" className="link text-primary">
-                Access Account
-              </Link>
+              Already a member? <Link to="/login">Access Account</Link>
             </>
           )}
-        </h6>
-      </div>
-    </form>
+        </p>
+      </form>
+    </div>
   );
 }
 

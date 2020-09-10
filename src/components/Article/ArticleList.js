@@ -1,75 +1,42 @@
-import React from 'react';
-import styled from 'styled-components';
-
+import React, { useEffect } from 'react';
+import { fetchArticles } from '@/context/actions/article';
+import { useArticle } from '@/context/app/ArticleContext';
+import { useError } from '@/context/app/ErrorContext';
 import loading from '@/utils/app';
-import { fontSize, pixelsToRem } from '@/utils/styles';
 
 const ArticleListItem = React.lazy(() => import('./ArticleListItem'));
 
-function ArticleList() {
+function ArticleList({ limit }) {
+  const { dispatch, state } = useArticle();
+  const { dispatch: errorDispatch } = useError();
+
+  useEffect(() => {
+    fetchArticles(dispatch, errorDispatch, limit)
+      .then(() => console.log('Fetched Articles'))
+      .catch(() => console.log('Failed to fetch articles'));
+  }, []);
+
+  const articles = state.data.map((value, index) => (
+    <ArticleListItem
+      title={value.title}
+      description={value.summary}
+      date={value.datePublished}
+      author={value.authors[0]}
+      link={value.link}
+      poster={value.image}
+      key={value._id}
+      id={value._id}
+      content={value.content}
+      language={value.language}
+    />
+  ));
   return (
-    <ArticleListContainer>
-      <h3 data-title="Bookmarked">Bookmarked</h3>
-      <div className="article-list">
-        <React.Suspense fallback={loading()}>
-          <ArticleListItem scale="left" />
-          <ArticleListItem scale="right-top" />
-          <ArticleListItem scale="right-bottom" />
-        </React.Suspense>
+    <div className="row">
+      <div className="col-lg-8 col-md-10 mx-auto">
+        <React.Suspense fallback={loading()}>{articles}</React.Suspense>
       </div>
-    </ArticleListContainer>
+    </div>
   );
 }
 
-const ArticleListContainer = styled.section`
-  width: 100%;
-  overflow: hidden;
-  display: grid;
-  grid-template-columns: 1fr;
-
-  h3 {
-    ${fontSize(22.5)}
-    margin-bottom: ${pixelsToRem(15)};
-    font-weight: 600;
-    position: relative;
-    color: var(--primaryColor);
-    &::after {
-      content: attr(data-title);
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      z-index: 1;
-      opacity: 0.25;
-      top: 0;
-      left: 0;
-      padding-left: ${pixelsToRem(10)};
-      transform: scale(1.05);
-      display: none;
-    }
-  }
-
-  .article-list {
-    width:100%;
-    height: 100%;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: ${pixelsToRem(10)};
-    grid-auto-rows: ${pixelsToRem(200)} ${pixelsToRem(200)};
-    grid-template-areas: 'left left right-top'
-                         'left left right-bottom';
-    
-    .left {
-      grid-area: left;
-    }
-
-    .right-top {
-      grid-area: right-top;
-    }
-
-    .right-bottom {
-      grid-area: right-bottom;
-    }
-    
-  }
-`;
 export default ArticleList;

@@ -1,23 +1,22 @@
 import React from 'react';
-
 import loading from '@/utils/app';
 
 const AuthContainer = React.lazy(() =>
   import('@/containers/Auth/AuthContainer'),
 );
 
-function Register() {
+function Login() {
   return (
     <React.Suspense fallback={loading()}>
       <AuthContainer
-        heading="Create Account"
-        subheading="Register to bookmark articles and so much more"
-        path="register"
-        btnText="Register"
-        title="Register"
+        heading="Access Account"
+        subheading="Log in to access your account"
+        path="login"
+        btnText="Log In"
+        title="Log In"
       />
     </React.Suspense>
   );
 }
 
-export default Register;
+export default Login;

@@ -83,7 +83,7 @@ function getUserDetails() {
 }
 
 function authUser(dispatch, page, formValue, history) {
-  const { authDispatch, errorDispatch } = dispatch;
+  const { dispatch: authDispatch, errorDispatch } = dispatch;
   return new Promise((resolve, reject) => {
     return apiRequest('post', `/api/auth/${page}`, formValue)
       .then(({ token }) => {

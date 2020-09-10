@@ -12,7 +12,7 @@ export const loadArticle = (data) => ({
   data,
 });
 
-export const fetchArticles = (dispatch, errorDispatch, limit = 10) => {
+export const fetchArticles = (dispatch, errorDispatch, limit = 5) => {
   return new Promise((resolve, reject) => {
     return apiRequest('get', `/api/articles?limit=${limit}`)
       .then(({ success, ...res }) => {
@@ -37,6 +37,7 @@ export const fetchArticle = (dispatch, errorDispatch, link) => {
         resolve();
       })
       .catch((error) => {
+        console.log(error);
         errorDispatch(addError(error));
         reject();
       });

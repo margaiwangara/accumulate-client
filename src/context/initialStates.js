@@ -3,6 +3,7 @@ export const AUTH_STATE = {
   user: {},
   code: null,
   expiry: null,
+  isLoading: false,
 };
 
 export const ERROR_STATE = {
@@ -11,5 +12,9 @@ export const ERROR_STATE = {
 
 export const ARTICLE_STATE = {
   article: {},
-  data: {},
+  data: [],
+};
+
+export const HEADER_STATE = {
+  payload: {},
 };
