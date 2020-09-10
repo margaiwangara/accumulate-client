@@ -37,6 +37,7 @@ export const fetchArticle = (dispatch, errorDispatch, link) => {
         resolve();
       })
       .catch((error) => {
+        console.log(error);
         errorDispatch(addError(error));
         reject();
       });

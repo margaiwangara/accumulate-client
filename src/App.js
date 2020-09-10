@@ -13,6 +13,7 @@ import {
   faEye,
   faEyeSlash,
   faChevronLeft,
+  faSignOutAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import loading from './utils/app';
 
@@ -28,6 +29,7 @@ library.add(
   faEyeSlash,
   faEye,
   faChevronLeft,
+  faSignOutAlt,
 );
 
 // store

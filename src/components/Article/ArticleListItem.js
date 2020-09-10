@@ -1,17 +1,25 @@
 import React from 'react';
-import styled from 'styled-components';
-import { pixelsToRem, fontSize } from '@/utils/styles';
-import Bookmark from '@/assets/icons/bookmark.svg';
 import { formatDistanceToNow } from 'date-fns';
+import { Link } from 'react-router-dom';
+import { useArticle } from '@/context/app/ArticleContext';
+import { loadArticle } from '@/context/actions/article';
 
-function ArticleListItem({ title, description, date, author }) {
+function ArticleListItem({ title, description, date, author, link }) {
+  const { dispatch, state } = useArticle();
+
+  const fetchArticle = (e) => {
+    const article = state.data.filter((value, index) => value.link === link);
+
+    dispatch(loadArticle(...article));
+  };
+
   return (
     <>
       <div className="post-preview">
-        <a href="post.html">
+        <Link to={`/${link}`} onClick={fetchArticle}>
           <h2 className="post-title">{title}</h2>
           <h3 className="post-subtitle">{description}</h3>
-        </a>
+        </Link>
         <p className="post-meta">
           Posted{' '}
           {formatDistanceToNow(new Date(date), {

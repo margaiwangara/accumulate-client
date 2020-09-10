@@ -13,8 +13,8 @@ function Article() {
   const { dispatch: errorDispatch } = useError();
 
   useEffect(() => {
-    if (Object.keys(state.article).length === 0) {
-      console.log('Not yet');
+    if (!!Object.keys(state.article).length) {
+    } else {
       // fetch from server
       fetchArticle(dispatch, errorDispatch, link)
         .then(() => console.log('Fetched Article'))
@@ -24,7 +24,6 @@ function Article() {
         });
     }
   }, []);
-
   return (
     <div className="row">
       <div className="col-lg-8 col-md-10 mx-auto">

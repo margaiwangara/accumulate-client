@@ -6,12 +6,12 @@ import loading from '@/utils/app';
 
 const ArticleListItem = React.lazy(() => import('./ArticleListItem'));
 
-function ArticleList() {
+function ArticleList({ limit }) {
   const { dispatch, state } = useArticle();
   const { dispatch: errorDispatch } = useError();
 
   useEffect(() => {
-    fetchArticles(dispatch, errorDispatch)
+    fetchArticles(dispatch, errorDispatch, limit)
       .then(() => console.log('Fetched Articles'))
       .catch(() => console.log('Failed to fetch articles'));
   }, []);

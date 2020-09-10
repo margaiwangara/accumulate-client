@@ -17,9 +17,9 @@ const INITIAL_STATE = {
 };
 
 function Home() {
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(5);
   const [content, setContent] = useState(INITIAL_STATE);
-  const { dispatch, state } = useArticle();
+  const { state } = useArticle();
   const { dispatch: errorDispatch } = useError();
   const { dispatch: headerDispatch } = useHeader();
 
@@ -39,11 +39,16 @@ function Home() {
     <>
       <TitleComponent title="Home" />
       <React.Suspense fallback={loading()}>
-        <ArticleList />
+        <ArticleList limit={limit} />
         <div className="clearfix">
-          <a className="btn btn-primary float-right" href="#more">
-            Older Posts &rarr;
-          </a>
+          <button
+            className="btn btn-primary float-right"
+            onClick={() =>
+              setLimit(limit < state.count ? limit + 5 : state.count)
+            }
+          >
+            Load More &rarr;
+          </button>
         </div>
       </React.Suspense>
     </>

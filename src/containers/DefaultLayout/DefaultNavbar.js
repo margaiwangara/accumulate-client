@@ -1,21 +1,28 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@/context/app/AuthContext';
 import { logoutUser } from '@/context/actions/auth';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function DefaultNavbar() {
+  const [dropdown, setDropdown] = useState(false);
   const { state } = useAuth();
+
+  const toggleDropdown = (e) => {
+    e.preventDefault();
+    setDropdown(!dropdown);
+  };
 
   return (
     <>
       <div
-        className="navbar navbar-expand-lg navbar-light fixed-top"
+        className="navbar navbar-expand-lg navbar-light fixed-top bg-dark"
         id="mainNav"
       >
         <div className="container">
-          <a className="navbar-brand" href="index.html">
+          <Link to="/" className="navbar-brand">
             accumulate
-          </a>
+          </Link>
           <button
             className="navbar-toggler navbar-toggler-right"
             type="button"
@@ -40,20 +47,44 @@ function DefaultNavbar() {
                   About
                 </Link>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link to="/articles" className="nav-link">
                   Articles
                 </Link>
-              </li>
+              </li> */}
               <li className="nav-item">
                 <Link to="/contact" className="nav-link">
                   Contact
                 </Link>
               </li>
-              <li className="nav-item">
-                <a href="#profile" className="nav-link py-0 pl-2">
+              <li className="nav-item dropdown">
+                <a
+                  href="#profile"
+                  className="nav-link py-0 pl-2 dropdown-toggle"
+                  id="navbarDropdownMenuLink"
+                  data-toggle="dropdown"
+                  onClick={toggleDropdown}
+                >
                   <span style={profileStyler}>{state.user.name.charAt(0)}</span>
                 </a>
+                <div
+                  className="dropdown-menu dropdown-menu-right px-0"
+                  style={{ display: dropdown ? 'block' : 'none' }}
+                >
+                  <Link to="/user/profile" className="dropdown-item">
+                    <FontAwesomeIcon icon="user-circle" /> Account
+                  </Link>
+                  <Link to="/user/change-password" className="dropdown-item">
+                    <FontAwesomeIcon icon="lock" /> Change Password
+                  </Link>
+                  <a
+                    className="dropdown-item"
+                    href="#dropdown"
+                    onClick={logoutUser}
+                  >
+                    <FontAwesomeIcon icon="sign-out-alt" /> Log Out
+                  </a>
+                </div>
               </li>
             </ul>
           </div>
