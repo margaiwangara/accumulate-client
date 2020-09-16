@@ -4,6 +4,7 @@ name: Client-Side Code For Accumulate App With React.js
     branches: master
 jobs:
   FTP-Deploy-Action:
+    name: FTP-Deploy-Action
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
