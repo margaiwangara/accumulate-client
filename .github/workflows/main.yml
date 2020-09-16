@@ -3,10 +3,13 @@ name: Client-Side Code For Accumulate App With React.js
   push:
     branches: master
 jobs:
-  build-app:
+  FTP-Deploy-Action:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+
       - name: Build React Project
         uses: actions/setup-node@v1
         with:
@@ -30,15 +33,12 @@ jobs:
       - name: List output files
         run: find build/ -print
 
-  deploy:
-    needs:
-      - build-app
-    name: Deploy to ftp server
-    runs-on: ubuntu-latest
-    steps:
-      - uses: SamKirkland/FTP-Deploy-Action@3.1.1
-        with:
-          ftp-server: '${{ secrets.FTP_SERVER }}/accumulate/'
-          ftp-username: '${{ secrets.FTP_USERNAME }}'
-          ftp-password: '${{ secrets.FTP_PASSWORD }}'
-          local-dir: build
+      - name: Deploy to ftp server
+        runs-on: ubuntu-latest
+        steps:
+          - uses: SamKirkland/FTP-Deploy-Action@3.1.1
+            with:
+              ftp-server: '${{ secrets.FTP_SERVER }}/accumulate/'
+              ftp-username: '${{ secrets.FTP_USERNAME }}'
+              ftp-password: '${{ secrets.FTP_PASSWORD }}'
+              local-dir: build
