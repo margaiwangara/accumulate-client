@@ -1,1 +1,1 @@
-export const BASE_URL = 'https://devnewsbucket.margaiwangara.me/';
+export const BASE_URL = 'https://devnewsbucket.margaiwangara.me';

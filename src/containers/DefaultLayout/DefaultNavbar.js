@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function DefaultNavbar() {
   const [dropdown, setDropdown] = useState(false);
-  const { state } = useAuth();
+  const { state, dispatch } = useAuth();
 
   const toggleDropdown = (e) => {
     e.preventDefault();
@@ -42,21 +42,21 @@ function DefaultNavbar() {
                   Home
                 </Link>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link to="/about" className="nav-link">
                   About
                 </Link>
-              </li>
+              </li> */}
               {/* <li className="nav-item">
                 <Link to="/articles" className="nav-link">
                   Articles
                 </Link>
               </li> */}
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link to="/contact" className="nav-link">
                   Contact
                 </Link>
-              </li>
+              </li> */}
               <li className="nav-item dropdown">
                 <a
                   href="#profile"
@@ -80,7 +80,7 @@ function DefaultNavbar() {
                   <a
                     className="dropdown-item"
                     href="#dropdown"
-                    onClick={logoutUser}
+                    onClick={() => logoutUser(dispatch)}
                   >
                     <FontAwesomeIcon icon="sign-out-alt" /> Log Out
                   </a>
@@ -109,6 +109,6 @@ const profileStyler = {
   textTransform: 'uppercase',
   padding: '1px 0 0 1px',
   flexShrink: 0,
-  fontWeight: 'normal',
+  fontWeight: 'bold',
 };
 export default DefaultNavbar;

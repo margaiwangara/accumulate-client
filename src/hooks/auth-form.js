@@ -15,31 +15,35 @@ const INITIAL_STATE = {
 
 function useAuthForm(path) {
   const [value, setValue] = useState(INITIAL_STATE);
+  const [loading, setLoading] = useState(false);
   const { dispatch } = useAuth();
   const { dispatch: errorDispatch } = useError();
   const history = useHistory();
 
-  console.log();
   const handleChange = (e) =>
     setValue({ ...value, [e.target.name]: e.target.value });
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
 
     authUser({ dispatch, errorDispatch }, path, value, history)
-      .then(() => console.log('Boom! Login Success'))
-      .catch(() => console.log('Oh Oh! Login Failed'));
+      .then(() => setLoading(false))
+      .catch(() => setLoading(false));
 
     setValue({ ...value, password: '', confirm_password: '' });
   };
 
   const handleForgotPassword = (e) => {
     e.preventDefault();
+    setLoading(true);
 
     if (!value.email) {
       const error = {
         message: 'Please provide an email address',
       };
+
+      setLoading(false);
 
       errorDispatch(addError(error));
       return;
@@ -47,12 +51,14 @@ function useAuthForm(path) {
 
     forgotPassword(value)
       .then(() => {
+        setLoading(false);
         errorDispatch(removeError());
         alert(
           'An email to reset your password has been sent to the email address provided.',
         );
       })
       .catch((error) => {
+        setLoading(false);
         errorDispatch(addError(error));
       });
   };
@@ -62,6 +68,7 @@ function useAuthForm(path) {
     handleChange,
     handleSubmit,
     handleForgotPassword,
+    loading,
   };
 }
 

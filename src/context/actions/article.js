@@ -14,7 +14,7 @@ export const loadArticle = (data) => ({
 
 export const fetchArticles = (dispatch, errorDispatch, limit = 5) => {
   return new Promise((resolve, reject) => {
-    return apiRequest('get', `/api/articles?limit=${limit}`)
+    return apiRequest('get', `/api/articles?limit=${limit}&sort=-datePublished`)
       .then(({ success, ...res }) => {
         dispatch(loadArticles({ ...res }));
         errorDispatch(removeError());

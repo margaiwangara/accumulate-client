@@ -1,12 +1,9 @@
 import React from 'react';
 import { useArticle } from '@/context/app/ArticleContext';
-
+import BannerImage from '@/assets/images/6.jpeg';
 function DefaultHeader() {
   const { state } = useArticle();
-  const banner =
-    state.data.length > 0
-      ? state.data[0].image
-      : 'https://source.unsplash.com/1920x1080/?computers,technology,code';
+  const banner = state.data.length > 0 ? state.data[0].image : BannerImage;
 
   return (
     <header

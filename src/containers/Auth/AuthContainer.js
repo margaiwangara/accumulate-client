@@ -9,22 +9,13 @@ const AuthForm = React.lazy(() => import('@/components/Auth/AuthForm'));
 function AuthContainer(props) {
   return (
     <AuthWrapper>
-      <SimpleBar
-        className="scroller"
-        style={{
-          maxHeight: '100%',
-        }}
-      >
-        <div className="row" style={{ margin: '10vh 0' }}>
-          <div className="col-md-4 offset-md-4">
-            <div className="card">
-              <React.Suspense fallback={loading()}>
-                <AuthForm {...props} />
-              </React.Suspense>
-            </div>
-          </div>
+      <section className="d-flex align-items-center justify-content-center px-2 auth-wrapper-inner">
+        <div className="card">
+          <React.Suspense fallback={loading()}>
+            <AuthForm {...props} />
+          </React.Suspense>
         </div>
-      </SimpleBar>
+      </section>
     </AuthWrapper>
   );
 }
@@ -39,7 +30,19 @@ AuthContainer.propTypes = {
 const AuthWrapper = styled.section`
   height: 100%;
   width: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  .auth-wrapper-inner {
+    height: 100%;
+    width: 100%;
+  }
+
+  @media only screen and (min-width: 768px) {
+    .card {
+      width: 400px;
+    }
+  }
 `;
 
 export default AuthContainer;

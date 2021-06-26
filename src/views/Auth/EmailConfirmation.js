@@ -9,6 +9,8 @@ function EmailConfirmation() {
   const parsed = qs.parse(location.search);
   const token = parsed.token;
 
+  console.log('token', token);
+
   useEffect(() => {
     if (!token) {
       history.push('/login');
