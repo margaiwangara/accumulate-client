@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import styled from 'styled-components';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
@@ -40,7 +40,7 @@ const Main = React.lazy(() => import('@/containers/Main/Main'));
 
 function App() {
   return (
-    <HashRouter>
+    <Router>
       <AppContainer id="app">
         <React.Suspense fallback={loading()}>
           <ContextStore>
@@ -48,7 +48,7 @@ function App() {
           </ContextStore>
         </React.Suspense>
       </AppContainer>
-    </HashRouter>
+    </Router>
   );
 }
 

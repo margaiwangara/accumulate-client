@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Switch, useHistory } from 'react-router-dom';
+import { Switch, useHistory, useLocation } from 'react-router-dom';
 import {
   setAuthorizationToken,
   getUserDetails,
@@ -27,9 +27,11 @@ const PublicRoute = React.lazy(() => import('@/components/Auth/PublicRoute'));
 function Main() {
   const { dispatch } = useAuth();
   const history = useHistory();
+  const location = useLocation();
 
   useEffect(() => {
     const authToken = window.localStorage.getItem('jwt');
+
     if (authToken) {
       setAuthorizationToken(authToken);
       getUserDetails()
@@ -59,9 +61,20 @@ function Main() {
             dispatch(setCurrentUser(userDetails));
           },
         )
-        .catch(() => dispatch(removeCurrentUser()));
+        .catch(() => {
+          setAuthorizationToken('');
+          dispatch(removeCurrentUser());
+        });
     } else {
       dispatch(removeCurrentUser());
+      // check routes for email confirmation and reset password
+      if (
+        location.pathname === '/confirm-email' ||
+        location.pathname === '/reset-password'
+      ) {
+        return;
+      }
+
       history.push('/login');
     }
   }, []);
@@ -88,8 +101,7 @@ function Main() {
         component={TwoFactor}
       />
       <PublicRoute
-        exact
-        path="/confirmemail"
+        path="/confirm-email"
         name="Confirm Email"
         component={EmailConfirmation}
       />

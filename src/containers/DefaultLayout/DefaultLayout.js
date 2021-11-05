@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import SimpleBar from 'simplebar-react';
 import loading from '@/utils/app';
 import routes from '@/routes';
@@ -10,15 +10,23 @@ const DefaultHeader = React.lazy(() => import('./DefaultHeader'));
 const DefaultFooter = React.lazy(() => import('./DefaultFooter'));
 
 function DefaultLayout() {
+  const location = useLocation();
+
+  const heading = !location.pathname.includes('user');
+
   return (
     <DefaultLayoutContainer>
       <React.Suspense fallback={loading()}>
         <DefaultNavbar />
       </React.Suspense>
-      <SimpleBar style={{ maxHeight: '100%', paddingTop: '0' }}>
-        <React.Suspense fallback={loading()}>
-          <DefaultHeader />
-        </React.Suspense>
+      <SimpleBar
+        style={{ maxHeight: '100%', paddingTop: heading ? 0 : '4rem' }}
+      >
+        {heading && (
+          <React.Suspense fallback={loading()}>
+            <DefaultHeader />
+          </React.Suspense>
+        )}
         <div className="container">
           <React.Suspense fallback={loading()}>
             <Switch>

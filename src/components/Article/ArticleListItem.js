@@ -25,8 +25,7 @@ function ArticleListItem({ title, description, date, author, link }) {
           {formatDistanceToNow(new Date(date), {
             addSuffix: true,
           })}{' '}
-          by
-          <a href="#start-bootstrap"> {author.name} </a>
+          {/* <a href="#start-bootstrap"> {author.name} </a> */}
         </p>
       </div>
       <hr />

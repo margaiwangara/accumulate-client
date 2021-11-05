@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { BASE_URL } from '@/utils/env';
+import { BASE_URL_PROD, BASE_URL_DEV } from '@/utils/env';
 
 export const setTokenHeader = (token) => {
   if (token) axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -7,7 +7,7 @@ export const setTokenHeader = (token) => {
 };
 
 const baseUrl =
-  process.env.NODE_ENV !== 'development' ? `${BASE_URL}` : BASE_URL;
+  process.env.NODE_ENV === 'development' ? `${BASE_URL_DEV}` : BASE_URL_PROD;
 
 function apiRequest(method, path, payload) {
   return new Promise((resolve, reject) => {

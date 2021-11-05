@@ -6,7 +6,7 @@ function TitleComponent({ title }) {
 
   return (
     <Helmet>
-      <title>{`Accumulate | ${title ? title : defaultTitle}`}</title>
+      <title>{`Habari | ${title ? title : defaultTitle}`}</title>
     </Helmet>
   );
 }

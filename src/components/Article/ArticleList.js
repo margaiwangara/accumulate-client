@@ -30,10 +30,15 @@ function ArticleList({ limit, setLoading }) {
       language={value.language}
     />
   ));
+
+  console.log('articles', articles);
+
   return (
     <div className="row">
       <div className="col-lg-8 col-md-10 mx-auto">
-        <React.Suspense fallback={loading()}>{articles}</React.Suspense>
+        <React.Suspense fallback={loading()}>
+          {articles.length ? articles : <p>There are no articles to display</p>}
+        </React.Suspense>
       </div>
     </div>
   );

@@ -21,7 +21,7 @@ function DefaultNavbar() {
       >
         <div className="container">
           <Link to="/" className="navbar-brand">
-            accumulate
+            habari
           </Link>
           <button
             className="navbar-toggler navbar-toggler-right"
@@ -79,8 +79,11 @@ function DefaultNavbar() {
                   </Link>
                   <a
                     className="dropdown-item"
-                    href="#dropdown"
-                    onClick={() => logoutUser(dispatch)}
+                    href="#logout"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      logoutUser(dispatch);
+                    }}
                   >
                     <FontAwesomeIcon icon="sign-out-alt" /> Log Out
                   </a>

@@ -12,10 +12,10 @@ function PublicRoute({ component: ComponentToRender, ...rest }) {
     <Route
       {...rest}
       render={(props) =>
-        !state.isAuthenticated ? (
-          <ComponentToRender {...props} />
-        ) : (
+        state.isAuthenticated ? (
           <Redirect to={from} />
+        ) : (
+          <ComponentToRender {...props} />
         )
       }
     />
